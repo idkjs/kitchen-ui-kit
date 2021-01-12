@@ -1,0 +1,1 @@
+{ "dirs" : [ "src" , "src/components" ] , "pkgs" : [ [ "gentype" , "/Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/gentype" ] , [ "bs-platform" , "/Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/bs-platform" ] , [ "reason-react" , "/Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/reason-react" ] ] , "generated" : [] }

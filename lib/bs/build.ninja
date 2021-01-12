@@ -1,0 +1,25 @@
+rescript = 1
+g_finger := /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/reason-react/lib/ocaml/install.stamp
+cleaner = /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/gentype/gentype.exe
+rule astj
+  command = /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/bs-platform/darwin/bsc.exe  -bs-v 8.4.2 -bs-jsx 3 -bs-super-errors -absname -bs-ast -o $out $i
+o src/App.ast : astj ../../src/App.res
+rule deps
+  command = /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/bs-platform/darwin/bsb_helper.exe -hash 22e7971bab5ea7cfa240bc46cffb0028 -bs-ns YourProjectName $in
+  restat = 1
+o src/App.d : deps src/App.ast
+rule mij
+  command = /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/bs-platform/darwin/bsc.exe -bs-ns YourProjectName -I . -I src/components -I src -I /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/reason-react/lib/ocaml -bs-super-errors  -bs-gentype /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/gentype/gentype.exe -bs-package-name your-project-name -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/App-YourProjectName.cmj src/App-YourProjectName.cmi ../../src/App.bs.js : mij src/App.ast
+o src/components/Button.ast : astj ../../src/components/Button.res
+o src/components/Button.d : deps src/components/Button.ast
+o src/components/Button-YourProjectName.cmj src/components/Button-YourProjectName.cmi ../../src/components/Button.bs.js : mij src/components/Button.ast
+o src/components/Button.stories.ast : astj ../../src/components/Button.stories.res
+o src/components/Button.stories.d : deps src/components/Button.stories.ast
+o src/components/Button.stories-YourProjectName.cmj src/components/Button.stories-YourProjectName.cmi ../../src/components/Button.stories.bs.js : mij src/components/Button.stories.ast
+rule build_package
+  command = /Users/maht0rz/Projects/stove-labs/wxtz-vault-manager/node_modules/bs-platform/darwin/bsc.exe -w -49 -color always -no-alias-deps  $i
+  restat = 1
+o YourProjectName.cmi : build_package YourProjectName.mlmap
