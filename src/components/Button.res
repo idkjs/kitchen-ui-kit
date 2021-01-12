@@ -1,14 +1,12 @@
+@bs.module external tailwind: unit = "tailwindcss/tailwind.css"; tailwind;
+
 type kind = 
 | Primary 
 | Secondary
 
 @react.component
 let make = (~kind: kind) => (
-    <>
-        <h1>{React.string("Test")}</h1>
-        {switch kind {
-            | Primary => <p>{React.string("Primary")}</p>
-            | Secondary => <p>{React.string("Secondary!")}</p>
-        }}
-    </>
+    <div className="bg-purple-600">
+        {React.string("Test")}
+    </div>
 )

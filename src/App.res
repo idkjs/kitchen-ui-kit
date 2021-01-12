@@ -1,2 +1,2 @@
 @react.component
-let make = () => <h1>{React.string("App")}</h1>
+let make = () => <Button kind={Button.Primary}/>
