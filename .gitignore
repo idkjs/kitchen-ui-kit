@@ -27,3 +27,5 @@ lib/
 .bsb.lock
 .eslintcache
 .merlin
+
+**/*.bs.js
