@@ -8,21 +8,8 @@ import {
     Size
 } from "./TextButton.stories.bs";
 import { IconKinds } from './../../Icon/Icon.stories.bs'
+import { maxWidth200px, maxDimensions, backgroundControl } from './../../../misc/storyHelpers'
 
-const MaxWidthContainer = ({width, children}) => (
-    <div style={{ width }}>
-       {children}
-    </div>
-)
-
-const maxWidth = (width, children) => (props) => {
-    const childWithProps = React.cloneElement(children, props);
-    return <MaxWidthContainer width={width}>
-        {childWithProps}
-    </MaxWidthContainer>
-}
-
-const maxWidth200px = (children) => maxWidth('200px', children)
 
 // stories
 export const Default = maxWidth200px(<DefaultButton/>)
@@ -34,7 +21,7 @@ Primary.args = {
     background: Background.light
 }
 
-export const PrimaryMedium = maxWidth("100px",<DefaultButton/>)
+export const PrimaryMedium = maxDimensions('100px', '100%',<DefaultButton/>)
 PrimaryMedium.args = {
     ...Primary.args,
     size: Size.medium,
@@ -75,12 +62,7 @@ export default {
         size: Size.large
     },
     argTypes: {
-        background: {
-            control: {
-                type: 'select',
-                options: Background
-            }
-        },
+        background: backgroundControl,
         kind: {
             control: {
                 type: 'select', 

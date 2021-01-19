@@ -2,10 +2,6 @@ type kind =
 | Default
 | Primary
 
-type background =
-| Light
-| Dark
-
 type iconPosition =
 | Left
 | Right
@@ -20,4 +16,4 @@ type description = string
 
 type disabled = bool;
 
-type onClick = option<ReactEvent.Mouse.t => unit>
+type onClick = ReactEvent.Mouse.t => unit

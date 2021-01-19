@@ -1,6 +1,7 @@
 open Emotion
-open Cn
 open ContentButtonProps
+open! Cn
+
 
 module Shared = {
     let noBoxShadow = boxShadow(
@@ -24,8 +25,23 @@ module Wrapper = {
         width(#pct(100.0))
     })
 
-    let make = (~disabled: disabled) => fromList(list{
+    let medium = css(list{
+        maxWidth(#px(100))
+    })
+
+    let large = css(list{
+        maxWidth(#px(200))
+    })
+
+    let make = (
+        ~disabled: disabled,
+        ~size: size
+    ) => fromList(list{
         shared,
+        switch size {
+            | Medium => medium
+            | Large => large
+        },
         Shared.disabled->on(disabled)
     })
 }
@@ -46,6 +62,7 @@ module Button = {
         alignItems(#center),
         justifyContent(#spaceBetween),
         color(Colors.white),
+        userSelect(#none)
     })
 
     let sharedLarge = css(list{
@@ -162,8 +179,8 @@ module Button = {
             | Primary => primary
         })->on(!disabled),
         (switch background {
-            | Light => lightBackground
-            | Dark => darkBackground
+            | Colors.Background.Light => lightBackground
+            | Colors.Background.Dark => darkBackground
         }),
         _disabled->on(disabled),
     })
@@ -197,14 +214,14 @@ module Description = {
     })
 
     let make = (
-        ~background: background,
+        ~background,
         ~disabled: disabled,
         ~size: ContentButtonProps.size
     ) => fromList(list{
         shared,
         switch background {
-            | Light => lightBackground
-            | Dark => darkBackground
+            | Colors.Background.Light => lightBackground
+            | Colors.Background.Dark => darkBackground
         },
         switch size {
             | Medium => mediumDescription

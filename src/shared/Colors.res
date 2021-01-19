@@ -12,7 +12,7 @@ module Gray = {
         let lighter = #hex("F9F9F9")
         let default = #hex("F2F2F2")
         let darker = #hex("EDEDED")
-        let darkest = #hex("E7E7E7")
+        let darkest = #hex("E2E2E2")
     }
 
     module Dark = {
@@ -26,4 +26,10 @@ module Secondary = {
     let default = #hex("171F2D")
     let darker = #hex("090A0C")
     let darkest = #hex("030405")
+}
+
+module Background = {
+    type t =
+    | Light
+    | Dark
 }

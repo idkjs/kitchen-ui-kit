@@ -1,15 +1,16 @@
 @react.component
 let make = (
-    ~kind: ContentButtonProps.kind, 
+    ~kind: TextButtonProps.kind = ContentButton.DefaultProps.kind, 
     ~text: string,
-    ~background: ContentButtonProps.background,
-    ~description: string,
-    ~icon: option<Icon.kind>,
-    ~iconPosition: ContentButtonProps.iconPosition,
-    ~disabled: bool,
-    ~onClick: option<ReactEvent.Mouse.t => unit>,
-    ~size: ContentButtonProps.size
+    ~background: Colors.Background.t = ContentButton.DefaultProps.background,
+    ~description: TextButtonProps.description = ContentButton.DefaultProps.description,
+    ~icon: TextButtonProps.icon = ContentButton.DefaultProps.icon,
+    ~iconPosition: TextButtonProps.iconPosition = ContentButton.DefaultProps.iconPosition,
+    ~disabled: TextButtonProps.disabled = ContentButton.DefaultProps.disabled,
+    ~onClick: option<TextButtonProps.onClick> =?,
+    ~size: TextButtonProps.size = ContentButton.DefaultProps.size
 ) => {
+
     let content = (
         <div className={TextButtonStyles.Content.make(
             ~size = size
@@ -29,7 +30,7 @@ let make = (
         )}
         disabled={disabled}
         size={size}
-        onClick={onClick}
+        ?onClick
     >
         {content}
     </ContentButton>

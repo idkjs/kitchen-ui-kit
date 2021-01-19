@@ -5,8 +5,8 @@ module Kind = {
 }
 
 module Background = {
-    let light = ContentButtonProps.Light
-    let dark = ContentButtonProps.Dark
+    let light = Colors.Background.Light
+    let dark = Colors.Background.Dark
 }
 
 module IconPosition = {
@@ -39,6 +39,6 @@ let make = (
         icon={icon}
         iconPosition={iconPosition}
         size={size}
-        onClick={Some(_ => Js.log("clicked"))}
+        onClick={_ => Js.log("clicked")}
     />
 }

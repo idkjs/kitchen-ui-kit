@@ -1,16 +1,15 @@
-%%raw(`import './../../../tailwind.css'`)
+%%raw(`import './../../../dependencies.css'`)
 open ContentButtonProps
 
 module DefaultProps = {
     let description = ""
-    let background = Light
+    let background = Colors.Background.Light
     let disabled = false
     let iconPosition = Left
     let kind = Default
     let iconSize = #px(24)
     let size = Large
     let icon = None
-    let onClick = None
 }
 
 @react.component
@@ -21,21 +20,16 @@ let make = (
      * TODO obtain the background information from a BackgroundContext
      * in order to prevent the wrong ContentButtonStyles being applied manually
      */
-    ~background: background = DefaultProps.background,
+    ~background: Colors.Background.t = DefaultProps.background,
     ~disabled: disabled = DefaultProps.disabled,
     ~icon: icon = DefaultProps.icon,
     ~iconPosition: iconPosition = DefaultProps.iconPosition,
     ~iconSize: Icon.size = DefaultProps.iconSize,
-    ~onClick: onClick = DefaultProps.onClick,
+    ~onClick: option<onClick> =?,
     ~size: size = DefaultProps.size,
     ~children
 ) => {
     let button = {
-        let onClick = event => switch (onClick) {
-            | Some(onClick) => onClick(event)
-            | None => ()
-        }
-
         let icon = switch icon {
             | Some(kind) => (
                 <div
@@ -60,7 +54,7 @@ let make = (
                 ~disabled = disabled,
                 ~size = size
             )}
-            onClick={onClick}
+            ?onClick
         > 
             {icon}
             <span 
@@ -88,7 +82,8 @@ let make = (
 
     // Wrapper
     <div className={ContentButtonStyles.Wrapper.make(
-        ~disabled = disabled
+        ~disabled: disabled,
+        ~size = size
     )}>
         {button}
         {description}

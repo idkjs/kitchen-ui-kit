@@ -9,9 +9,7 @@ module Shared = {
         | Large => #px(22)
     }
 
-    let shared = (
-        ~size: ContentButtonProps.size
-    ) => css(list{
+    let shared = () => css(list{
         textTransform(#uppercase),
         fontWeight(700),
         display(#flex),
@@ -38,9 +36,7 @@ module Shared = {
     let make = (
         ~size: ContentButtonProps.size
     ) => fromList(list{
-        shared(
-            ~size = size
-        ),
+        shared(),
         switch size {
             | Medium => sharedMedium
             | Large => sharedLarge
