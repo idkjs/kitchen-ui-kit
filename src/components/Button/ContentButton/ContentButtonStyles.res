@@ -105,6 +105,25 @@ module Button = {
         })
     })
 
+    let ghost = css(list{
+        boxShadow(
+            ~y = #px(0), 
+            ~x = #px(0), 
+            ~blur = #px(0), 
+            ~spread = #px(3), 
+            ~inset = true, 
+            Colors.Secondary.darkest
+        ),
+
+        hover(list{
+            backgroundColor(Colors.Secondary.darker)
+        }),
+
+        active(list{
+            backgroundColor(Colors.Secondary.darkest)
+        })
+    })
+
     // icon position
     let iconLeft = css(list{
         flexDirection(#row)
@@ -174,14 +193,15 @@ module Button = {
             | Left => iconLeft
             | Right => iconRight
         }),
-        (switch kind {
-            | Default => default
-            | Primary => primary
-        })->on(!disabled),
         (switch background {
             | Colors.Background.Light => lightBackground
             | Colors.Background.Dark => darkBackground
         }),
+        (switch kind {
+            | Default => default
+            | Primary => primary
+            | Ghost => ghost
+        })->on(!disabled),
         _disabled->on(disabled),
     })
 }

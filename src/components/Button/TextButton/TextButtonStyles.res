@@ -6,7 +6,7 @@ module Shared = {
         ~size: ContentButtonProps.size
     ) => switch size {
         | Medium => #px(16)
-        | Large => #px(22)
+        | Large => #px(24)
     }
 
     let shared = () => css(list{

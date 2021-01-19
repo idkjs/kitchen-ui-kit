@@ -1,6 +1,7 @@
 type kind = 
 | Default
 | Primary
+| Ghost
 
 type iconPosition =
 | Left

@@ -2,6 +2,7 @@
 module Kind = {
     let default = ContentButtonProps.Default
     let primary = ContentButtonProps.Primary
+    let ghost = ContentButtonProps.Ghost
 }
 
 module Background = {

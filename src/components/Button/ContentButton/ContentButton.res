@@ -12,6 +12,8 @@ module DefaultProps = {
     let icon = None
 }
 
+let errorGhostButtonCantHaveLightBackground = "Ghost button can't be created with a light background"
+
 @react.component
 let make = (
     ~kind: kind,
@@ -29,6 +31,22 @@ let make = (
     ~size: size = DefaultProps.size,
     ~children
 ) => {
+
+    let validateProps = () => {
+        switch kind {
+            | Primary => ()
+            | Default => ()
+            | Ghost => (
+                switch background {
+                    | Dark => ()
+                    | Light => Js.Exn.raiseError(errorGhostButtonCantHaveLightBackground)
+                }
+            )
+        }
+    }
+
+    let _ = validateProps()
+
     let button = {
         let icon = switch icon {
             | Some(kind) => (

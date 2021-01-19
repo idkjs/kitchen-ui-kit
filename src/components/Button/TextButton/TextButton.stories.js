@@ -48,6 +48,17 @@ PrimaryDark.parameters = {
     }
 }
 
+export const GhostDark = maxWidth200px(<DefaultButton/>)
+GhostDark.parameters = {
+    backgrounds: {
+        default: 'dark'
+    }
+}
+GhostDark.args = {
+    kind: Kind.ghost,
+    background: Background.dark
+}
+
 export default {
     title: 'components/TextButton',
     component: TextButton,
