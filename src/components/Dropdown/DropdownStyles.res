@@ -6,6 +6,7 @@ module Container = {
         position(#relative),
         top(#px(0)),
         width(#pct(100.0)),
+        userSelect(#none)
     })
 
     let make = () => shared
@@ -30,9 +31,15 @@ module Wrapper = {
             ~direction
         ) => {
             let direction = switch direction {
-                | DropdownProps.Down => (length) => top(length)
-                | DropdownProps.Up => (length) => bottom(length)
+                | DropdownProps.Down => (length) => list{
+                    top(#px(length))
+                }
+                | DropdownProps.Up => (length) => list{
+                    bottom(#px(length))
+                }
             }
+
+            Js.log2("direction", direction(distanceFromHost))
 
             let fadeIn = keyframes(list{
                 (10, list{
@@ -40,28 +47,28 @@ module Wrapper = {
                 }),
 
                 (20, list{
-                    direction(#px(0))
+                    ...direction(0)
                 }),
 
                 (100, list{
-                    direction(distanceFromHost),
                     opacity(1.0),
                     visibility(#visible),
-                    zIndex(9999)
+                    zIndex(9999),
+                    ...direction(distanceFromHost),
                 })
             })
 
             let fadeOut = keyframes(list{
                 (0, list{
                     opacity(1.0),
-                    direction(distanceFromHost)
+                    ...direction(distanceFromHost)
                 }),
 
                 (90, list{
-                    direction(#px(0)),
                     opacity(0.0),
                     visibility(#hidden),
-                    zIndex(-9999)
+                    zIndex(-9999),
+                    ...direction(0),
                 }),
             })
 

@@ -17,7 +17,7 @@ let defaultDropdown = (
         <br/>
         <br/>
         <Dropdown
-                distanceFromHost={#px(10)}
+                distanceFromHost={10}
                 direction={DropdownProps.Up}
                 opened={opened}
                 background={background}
@@ -33,7 +33,7 @@ let defaultDropdown = (
         </Dropdown>
         <TextButton
             text={"toggle"}
-            icon={icon}
+            ?icon
             iconPosition={ContentButtonProps.Right}
             background={background}
             onClick={_ => setOpened(opened => !opened)}

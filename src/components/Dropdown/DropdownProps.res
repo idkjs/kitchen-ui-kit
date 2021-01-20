@@ -1,8 +1,7 @@
-open Emotion
 type direction =
 | Up
 | Down
 
 type opened = bool
 
-type distanceFromHost = Css.LengthPercentageAuto.t
+type distanceFromHost = int

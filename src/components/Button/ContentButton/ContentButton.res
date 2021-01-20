@@ -1,5 +1,6 @@
 %%raw(`import './../../../dependencies.css'`)
 open ContentButtonProps
+open! Cn
 
 module DefaultProps = {
     let description = ""
@@ -9,7 +10,6 @@ module DefaultProps = {
     let kind = Default
     let iconSize = #px(24)
     let size = Large
-    let icon = None
 }
 
 let errorGhostButtonCantHaveLightBackground = "Ghost button can't be created with a light background"
@@ -24,10 +24,11 @@ let make = (
      */
     ~background: Colors.Background.t = DefaultProps.background,
     ~disabled: disabled = DefaultProps.disabled,
-    ~icon: icon = DefaultProps.icon,
+    ~icon: option<icon> =?,
     ~iconPosition: iconPosition = DefaultProps.iconPosition,
     ~iconSize: Icon.size = DefaultProps.iconSize,
     ~onClick: option<onClick> =?,
+    ~onMouseEnter: option<onMouseEnter> =?,
     ~size: size = DefaultProps.size,
     ~children
 ) => {
@@ -65,14 +66,18 @@ let make = (
         };
 
         <div 
-            className={ContentButtonStyles.Button.make(
-                ~iconPosition = iconPosition,
-                ~kind = kind,
-                ~background = background,
-                ~disabled = disabled,
-                ~size = size
-            )}
+            className={fromList(list{
+                ContentButtonStyles.Button.make(
+                    ~iconPosition = iconPosition,
+                    ~kind = kind,
+                    ~background = background,
+                    ~disabled = disabled,
+                    ~size = size
+                ),
+                "button"
+            })}
             ?onClick
+            ?onMouseEnter
         > 
             {icon}
             <span 

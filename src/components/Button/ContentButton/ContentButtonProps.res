@@ -7,7 +7,7 @@ type iconPosition =
 | Left
 | Right
 
-type icon = option<Icon.kind>
+type icon = Icon.kind
 
 type size =
 | Medium
@@ -18,3 +18,4 @@ type description = string
 type disabled = bool;
 
 type onClick = ReactEvent.Mouse.t => unit
+type onMouseEnter = ReactEvent.Mouse.t => unit

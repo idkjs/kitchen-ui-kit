@@ -30,7 +30,7 @@ module Wrapper = {
     })
 
     let large = css(list{
-        maxWidth(#px(200))
+        maxWidth(#px(250))
     })
 
     let make = (
@@ -62,7 +62,7 @@ module Button = {
         alignItems(#center),
         justifyContent(#spaceBetween),
         color(Colors.white),
-        userSelect(#none)
+        
     })
 
     let sharedLarge = css(list{
@@ -81,59 +81,6 @@ module Button = {
         width(#pct(100.0)),
         textAlign(#center)
     })
-
-    // kind
-    let default = baseDefault + css(list{
-        hover(list{
-            backgroundColor(Colors.Gray.Dark.darker)
-        }),
-
-        active(list{
-            backgroundColor(Colors.Gray.Dark.darkest)
-        })
-    })
-
-    let primary = css(list{
-        backgroundColor(Colors.Primary.default),
-
-        hover(list{
-            backgroundColor(Colors.Primary.darker)
-        }),
-
-        active(list{
-            backgroundColor(Colors.Primary.darkest)
-        })
-    })
-
-    let ghost = css(list{
-        boxShadow(
-            ~y = #px(0), 
-            ~x = #px(0), 
-            ~blur = #px(0), 
-            ~spread = #px(3), 
-            ~inset = true, 
-            Colors.Secondary.darkest
-        ),
-
-        hover(list{
-            backgroundColor(Colors.Secondary.darker)
-        }),
-
-        active(list{
-            backgroundColor(Colors.Secondary.darkest)
-        })
-    })
-
-    // icon position
-    let iconLeft = css(list{
-        flexDirection(#row)
-    })
-
-    let iconRight = css(list{
-        flexDirection(#rowReverse)
-    })
-
-    let _disabled = baseDefault + Shared.disabled 
 
     // background
     let lightBackground = css(list{
@@ -157,6 +104,63 @@ module Button = {
             Colors.Secondary.darker
         ),
     })
+
+
+    // kind
+    let defaultHover = list{
+        backgroundColor(Colors.Gray.Dark.darker)
+    }
+    let default = baseDefault + css(list{
+        hover(defaultHover),
+
+        active(list{
+            backgroundColor(Colors.Gray.Dark.darkest)
+        })
+    })
+
+    let primaryHover = list{
+        backgroundColor(Colors.Primary.darker)
+    }
+    let primary = css(list{
+        backgroundColor(Colors.Primary.default),
+
+        hover(primaryHover),
+
+        active(list{
+            backgroundColor(Colors.Primary.darkest)
+        })
+    })
+
+    let ghostHover = list{
+        backgroundColor(Colors.Secondary.darker)
+    }
+    let ghost = css(list{
+        boxShadow(
+            ~y = #px(0), 
+            ~x = #px(0), 
+            ~blur = #px(0), 
+            ~spread = #px(3), 
+            ~inset = true, 
+            Colors.Secondary.darkest
+        ),
+
+        hover(ghostHover),
+
+        active(list{
+            backgroundColor(Colors.Secondary.darkest)
+        })
+    })
+
+    // icon position
+    let iconLeft = css(list{
+        flexDirection(#row)
+    })
+
+    let iconRight = css(list{
+        flexDirection(#rowReverse)
+    })
+
+    let _disabled = baseDefault + Shared.disabled 
 
     module Icon = {
         let margin = #px(4)

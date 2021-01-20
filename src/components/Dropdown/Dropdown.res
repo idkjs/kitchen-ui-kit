@@ -1,6 +1,8 @@
 %%raw(`import './../../dependencies.css'`)
 
+open Emotion
 open Cn
+
 @react.component
 let make = (
     ~background: Colors.Background.t,
@@ -20,9 +22,12 @@ let make = (
     )
 
     <div
-        className={
-            DropdownStyles.Container.make()
-        }
+        className={fromList(list{
+            DropdownStyles.Container.make(),
+            css(list{
+                paddingBottom(#px(distanceFromHost))
+            })
+        })}
     >
         <div
             className={fromList(list{

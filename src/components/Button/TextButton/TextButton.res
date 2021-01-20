@@ -4,7 +4,7 @@ let make = (
     ~text: string,
     ~background: Colors.Background.t = ContentButton.DefaultProps.background,
     ~description: TextButtonProps.description = ContentButton.DefaultProps.description,
-    ~icon: TextButtonProps.icon = ContentButton.DefaultProps.icon,
+    ~icon: option<TextButtonProps.icon> =?,
     ~iconPosition: TextButtonProps.iconPosition = ContentButton.DefaultProps.iconPosition,
     ~disabled: TextButtonProps.disabled = ContentButton.DefaultProps.disabled,
     ~onClick: option<TextButtonProps.onClick> =?,
@@ -23,7 +23,7 @@ let make = (
         kind={kind}
         description={description}
         background={background}
-        icon={icon}
+        ?icon
         iconPosition={iconPosition}
         iconSize={TextButtonStyles.Shared.contentHeight(
             ~size = size
