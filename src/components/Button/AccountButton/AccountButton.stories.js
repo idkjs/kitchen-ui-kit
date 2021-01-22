@@ -15,6 +15,6 @@ export default {
     args: {
         pkh: 'tz1RB4dczQ6ixCjpowiRTiL5eLFVq6zqDNGz',
         // pkh: 'tz1RB4dczQ6ix',
-        balance: 123456789123456
+        balance: '123456789123456'
     }
 }

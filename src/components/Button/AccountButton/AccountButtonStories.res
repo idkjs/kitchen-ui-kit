@@ -3,6 +3,8 @@ let make = (
     ~pkh,
     ~balance
 ) => {
+    // convert from the integer provided by the story control
+    let balance = BigNumber.make(balance)
     <>
         <br/>
         <br/>

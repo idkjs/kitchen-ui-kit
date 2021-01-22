@@ -3,6 +3,10 @@
 open Emotion
 open Cn
 
+include BigNumber
+
+let useDropdown = () => React.useState(_ => false)
+
 @react.component
 let make = (
     ~background: Colors.Background.t,
@@ -11,6 +15,7 @@ let make = (
     ~direction: DropdownProps.direction,
     ~children
 ) => {
+
     let (from, _to) = DropdownStyles.Wrapper.Animation.make(
         ~distanceFromHost,
         ~direction

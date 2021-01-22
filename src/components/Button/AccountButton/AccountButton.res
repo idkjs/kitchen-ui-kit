@@ -4,50 +4,14 @@ let make = (
     ~pkh: AccountButtonProps.pkh,
     ~balance: AccountButtonProps.balance
 ) => {
+    let (isDropdownOpened, setIsDropdownOpened) = Dropdown.useDropdown()
 
-
-    let (isDropdownOpened, setIsDropdownOpened) = React.useState(_ => false)
-
-    let truncateInMiddle = (string: string) => {
-        let joinWith = "..."
-        let targetLength = 18
-        let length = Js.String.length(string)
-        let chars = string
-            |> Js.String.split("")
-
-        let firstHalf = chars
-            |> Js.Array.slice(
-                ~start = 0, 
-                ~end_ = targetLength / 2
-            )
-
-        let secondHalf = chars
-            |> Js.Array.slice(
-                ~start = length - (targetLength / 2), 
-                ~end_ = length
-            )
-
-        let truncated = 
-            Js.Array.joinWith("", firstHalf)
-            ++ joinWith
-            ++ Js.Array.joinWith("", secondHalf)
-
-        truncated
-    }
-
-    Js.log2("balance", balance)
-    let balance = FormatBalance.make(balance)
-
-    Js.log2("balance2", balance)
-    
-
-    let truncatedPkh = truncateInMiddle(pkh)
+    let balance = XTZBalance.format(balance)
+    let truncatedPkh = Pkh.truncateInMiddle(pkh)
 
     let closeDropdown = _ => setIsDropdownOpened(_ => false)
     let openDropdown = _ => setIsDropdownOpened(_ => true)
     
-    
-
     <div 
         className={AccountButtonStyles.Wrapper.make(
             ~isDropdownOpened

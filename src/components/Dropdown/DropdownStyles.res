@@ -39,21 +39,26 @@ module Wrapper = {
                 }
             }
 
-            Js.log2("direction", direction(distanceFromHost))
-
             let fadeIn = keyframes(list{
                 (10, list{
                     opacity(0.0),
+                    zIndex(9999),
+                    visibility(#visible),
                 }),
 
                 (20, list{
                     ...direction(0)
                 }),
 
+                (90, list{
+                    ...direction(distanceFromHost),
+
+                }),
+
                 (100, list{
                     opacity(1.0),
-                    visibility(#visible),
                     zIndex(9999),
+                    visibility(#visible),
                     ...direction(distanceFromHost),
                 })
             })
@@ -95,8 +100,9 @@ module Wrapper = {
         backgroundColor(Colors.white),
         position(#absolute),
         opacity(0.0),
-        animationDuration(#ms(300)),
+        animationDuration(#ms(220)),
         animationFillMode(#forwards),
+        animationTimingFunction(#easeInOut),
         zIndex(-9999)
     })
 

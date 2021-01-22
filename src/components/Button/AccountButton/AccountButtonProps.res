@@ -1,2 +1,2 @@
 type pkh = string
-type balance = int
+type balance = BigNumber.t
