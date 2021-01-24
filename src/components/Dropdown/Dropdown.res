@@ -10,6 +10,8 @@ let useDropdown = () => React.useState(_ => false)
 @react.component
 let make = (
     ~background: Colors.Background.t,
+    // Passing true on the initial render
+    // will not open the dropdown
     ~opened: bool,
     ~distanceFromHost: DropdownProps.distanceFromHost,
     ~direction: DropdownProps.direction,
@@ -31,7 +33,8 @@ let make = (
             DropdownStyles.Container.make(),
             css(list{
                 paddingBottom(#px(distanceFromHost))
-            })
+            }),
+            "dropdown"
         })}
     >
         <div
@@ -39,7 +42,8 @@ let make = (
                 DropdownStyles.Wrapper.make(
                     ~background
                 ),
-                animationClass
+                animationClass,
+                "dropdown-wrapper"
             })}
         >
             {children}

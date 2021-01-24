@@ -20,7 +20,7 @@ export default {
     component: Dropdown,
     args: {
         background: Background.light,
-        opened: true
+        opened: false
     },
     argTypes: {
         background: backgroundControl

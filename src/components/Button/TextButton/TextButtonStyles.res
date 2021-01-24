@@ -14,7 +14,10 @@ module Shared = {
         fontWeight(700),
         display(#flex),
         justifyContent(#center),
-        alignItems(#center)
+        alignItems(#center),
+        // TODO: align the text vertically properly,
+        // this is just a workaround for the text to appear more centered
+
     })
 
     let sharedLarge = css(list{

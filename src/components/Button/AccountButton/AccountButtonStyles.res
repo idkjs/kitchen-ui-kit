@@ -31,6 +31,11 @@ module Wrapper = {
                     select(".button", ghostButtonHover)
                 }
                 | false => list{}
+            }),
+            // AccountButton is responsible for setting the width
+            // of the underlying list, this is not ideal
+            select(".dropdown-wrapper", list{
+                width(#pct(100.0))
             })
         })
     })

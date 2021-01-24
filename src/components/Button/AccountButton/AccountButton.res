@@ -1,45 +1,71 @@
 
+type dropdownAction =
+| Settings
+| ChangeAccount
+
 @react.component
 let make = (
     ~pkh: AccountButtonProps.pkh,
     ~balance: AccountButtonProps.balance
 ) => {
-    let (isDropdownOpened, setIsDropdownOpened) = Dropdown.useDropdown()
+    let (dropdown, isDropdownOpened, openDropdown, closeDropdown) = {
+        let (isDropdownOpened, setIsDropdownOpened) = Dropdown.useDropdown()
+        let closeDropdown = _ => setIsDropdownOpened(_ => false)
+        let openDropdown = _ => setIsDropdownOpened(_ => true)
 
-    let balance = XTZBalance.format(balance)
-    let truncatedPkh = Pkh.truncateInMiddle(pkh)
+        let dropdownListItems: SelectTextList.Props.items<dropdownAction> = [
+            {
+                selected: false,
+                data: {
+                    label: "Change Account",
+                    value: ChangeAccount
+                }
+            },
+            {
+                selected: false,
+                data: {
+                    label: "Settings",
+                    value: Settings
+                }
+            },
+        ]
 
-    let closeDropdown = _ => setIsDropdownOpened(_ => false)
-    let openDropdown = _ => setIsDropdownOpened(_ => true)
-    
-    <div 
-        className={AccountButtonStyles.Wrapper.make(
-            ~isDropdownOpened
-        )}
-        onMouseLeave={_ => closeDropdown()}
-    >
-        <Dropdown
-            background={Colors.Background.Dark}
-            opened={isDropdownOpened}
-            distanceFromHost={10}
-            direction=(DropdownProps.Up)
-        >
-            <h1 style=(ReactDOM.Style.make(
-                ~width="240px",
-                ~height="100px",
-                ~padding="12px",
-                ()
-            ))>
-                {React.string("Dropdown")}
-            </h1>
-        </Dropdown>
+        let selectTextListOnChange: SelectTextList.Props.onChange<dropdownAction> = (item) => {
+            closeDropdown()
+            switch item.data.value {
+                | ChangeAccount => Js.log("change account")
+                | Settings => Js.log("settings")
+            }
+        }
+
+        let dropdown = (
+            <Dropdown
+                background={Colors.Background.Dark}
+                opened={isDropdownOpened}
+                distanceFromHost={10}
+                direction=(DropdownProps.Up)
+            >
+                <SelectTextList
+                    items={dropdownListItems}
+                    onChange={selectTextListOnChange}
+                />
+            </Dropdown>
+        )
+
+        (dropdown, isDropdownOpened, openDropdown, closeDropdown)
+    }
+
+    let button = {
+        let balance = XTZBalance.format(balance)
+        let truncatedPkh = Pkh.truncateInMiddle(pkh)
+        let onMouseEnter = _ => openDropdown()
 
         <ContentButton
             kind={ContentButtonProps.Ghost}
             background={Colors.Background.Dark}
             icon={#chevronUp}
             iconPosition={ContentButtonProps.Right}
-            onMouseEnter={_ => openDropdown()}
+            onMouseEnter={onMouseEnter}
         >
             <div
                 className={AccountButtonStyles.ContentWrapper.make()}
@@ -56,5 +82,21 @@ let make = (
                 </span>
             </div>
         </ContentButton>
-    </div>
+    }
+    
+    let wrapper = {
+        let onMouseLeave = _ => closeDropdown()
+
+        <div 
+            className={AccountButtonStyles.Wrapper.make(
+                ~isDropdownOpened
+            )}
+            onMouseLeave={onMouseLeave}
+        >
+            {dropdown}
+            {button}
+        </div>
+    }
+
+    wrapper
 }

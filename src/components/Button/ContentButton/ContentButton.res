@@ -80,11 +80,11 @@ let make = (
             ?onMouseEnter
         > 
             {icon}
-            <span 
+            <div 
                 className={ContentButtonStyles.Button.text}
             >
                 {children}
-            </span>
+            </div>
         </div>
     }
     

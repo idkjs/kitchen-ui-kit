@@ -6,7 +6,7 @@ module Container = {
         position(#relative),
         top(#px(0)),
         width(#pct(100.0)),
-        userSelect(#none)
+        boxSizing(#borderBox),
     })
 
     let make = () => shared
@@ -91,23 +91,22 @@ module Wrapper = {
     }
 
     let shared = css(list{
-        borderWidth(#px(1)),
+        borderWidth(#px(0)),
         borderRadius(#px(8)),
-        borderColor(Colors.Gray.Light.default),
-        borderWidth(#px(1)),
-        width(#auto),
+        borderColor(Colors.Gray.Light.lighter),
+        width(#pct(100.0)),
         height(#auto),
         backgroundColor(Colors.white),
         position(#absolute),
         opacity(0.0),
         animationDuration(#ms(220)),
         animationFillMode(#forwards),
-        animationTimingFunction(#easeInOut),
-        zIndex(-9999)
+        animationTimingFunction(#linear),
+        zIndex(-9999),
     })
 
     let backgroundLight = css(list{
-        boxShadowWrapper(Colors.Gray.Light.default)
+        boxShadowWrapper(Colors.Gray.Light.darker)
     })
 
     let backgroundDark = css(list{
