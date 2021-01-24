@@ -1,16 +1,22 @@
 import { defaultSelectTextList as SelectTextList } from "./SelectTextListStories.bs";
 import { maxWidth200px } from "./../../../misc/storyHelpers";
 
-export const Default = maxWidth200px(<SelectTextList/>)
-Default.args = {
+export const DefaultInDropdown = maxWidth200px(<SelectTextList/>)
+DefaultInDropdown.args = {
     items: [
         {
             selected: false,
-            data: "Alice"
+            data: {
+                label: "Alice",
+                value: "Alice"
+            }
         },
         {
             selected: true,
-            data: "Bob"
+            data: {
+                label: "Alice",
+                value: "Alice"
+            }
         }
     ]
 }

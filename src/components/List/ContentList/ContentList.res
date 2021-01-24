@@ -1,5 +1,6 @@
 module Props = {
-    type renderItem<'a> = ('a) => React.element
+    type index = int
+    type renderItem<'a> = (index, 'a) => React.element
     type items<'a> = array<'a>
 }
 
@@ -8,6 +9,6 @@ let make = (
     ~renderItem: Props.renderItem<'a>,
     ~items: Props.items<'a>
 ) => {
-    Belt.Array.map(items, renderItem)
+    Belt.Array.mapWithIndex(items, renderItem)
         -> React.array
 }

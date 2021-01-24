@@ -5,7 +5,7 @@ module Props = {
     }
 
     type items<'a> = array<selectItem<'a>>
-    type renderItem<'a> = (selectItem<'a>) => React.element
+    type renderItem<'a> = (ContentList.Props.index, selectItem<'a>) => React.element
     type onChange<'a> = (selectItem<'a>) => unit
 }
 
@@ -15,11 +15,12 @@ let make = (
     ~renderItem: Props.renderItem<'a>,
     ~onChange: Props.onChange<'a>
 ) => {
-    let renderItem = (item) => {
+    let renderItem = (index, item) => {
         <div 
+            key={string_of_int(index)}
             onClick={_ => onChange(item)}
         >
-            {renderItem(item)}
+            {renderItem(index, item)}
         </div>
     }
     

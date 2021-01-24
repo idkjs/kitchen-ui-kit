@@ -58,7 +58,7 @@ let make = (
     ~items: Props.items<'a>,
     ~onChange: Props.onChange<'a>
 ) => {
-    let renderItem: renderItem<'a> = (item) => {
+    let renderItem: renderItem<'a> = (_, item) => {
         <p
             className={Styles.Item.make(
                 ~selected = item.selected

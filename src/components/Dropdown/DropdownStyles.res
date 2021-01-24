@@ -91,9 +91,9 @@ module Wrapper = {
     }
 
     let shared = css(list{
-        borderWidth(#px(0)),
+        borderWidth(#px(1)),
         borderRadius(#px(8)),
-        borderColor(Colors.Gray.Light.lighter),
+        borderColor(Colors.Gray.Light.default),
         width(#pct(100.0)),
         height(#auto),
         backgroundColor(Colors.white),
