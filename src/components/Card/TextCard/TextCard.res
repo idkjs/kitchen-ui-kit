@@ -25,11 +25,11 @@ module Styles = {
 let make = (
     ~title: ContentCard.Props.title,
     ~text: Props.text,
-    ~description: ContentCard.Props.description
+    ~description: option<ContentCard.Props.description> =?
 ) => {
     <ContentCard
         title
-        description
+        ?description
     >
         <div
             className={Styles.Wrapper.make()}

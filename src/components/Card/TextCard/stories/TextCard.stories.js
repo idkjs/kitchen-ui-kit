@@ -1,6 +1,7 @@
 import { maxDimensions } from './../../../../misc/storyHelpers'
 import { make as TextCard } from './../TextCard.bs'
 import { make as DefaultTextCard } from './TextCardStories.bs'
+// import { mdCardContainer, smCardContainer } from "./helpers";
 
 const mdCardContainer = (component) => maxDimensions('464px', '144px', component)
 const smCardContainer = (component) => maxDimensions('225px', '144px', component)
@@ -19,7 +20,7 @@ export const SmallWithoutDescription = smCardContainer(<DefaultTextCard/>)
 
 
 export default {
-    title: 'components/TextCard',
+    title: 'components/card/TextCard',
     component: TextCard,
     parameters:{
         backgrounds: {
