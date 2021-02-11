@@ -1,4 +1,4 @@
-import { maxDimensions } from '../../../misc/storyHelpers'
+import { maxDimensions } from '../../misc/storyHelpers'
 import { make as AccountButton } from './AccountButton.bs'
 import { make as DefaultAccountButton} from './AccountButtonStories.bs'
 

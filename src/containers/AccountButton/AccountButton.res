@@ -1,7 +1,7 @@
 
 type dropdownAction =
-| Settings
 | ChangeAccount
+| Settings
 
 @react.component
 let make = (
@@ -9,34 +9,25 @@ let make = (
     ~balance: AccountButtonProps.balance
 ) => {
     let (dropdown, isDropdownOpened, openDropdown, closeDropdown) = {
-        let (isDropdownOpened, setIsDropdownOpened) = Dropdown.useDropdown()
-        let closeDropdown = _ => setIsDropdownOpened(_ => false)
-        let openDropdown = _ => setIsDropdownOpened(_ => true)
+        let (isDropdownOpened, _, _, openDropdown, closeDropdown) = Dropdown.useDropdown()
 
-        let dropdownListItems: SelectTextList.Props.items<dropdownAction> = [
+        let dropdownListItems: SelectList.Props.items<dropdownAction> = [
             {
-                selected: false,
-                data: {
-                    label: "Change Account",
-                    value: ChangeAccount
-                }
+                id: "changeAccount",
+                label: "Change Account",
+                data: Some(ChangeAccount)
             },
             {
-                selected: false,
-                data: {
-                    label: "Settings",
-                    value: Settings
-                }
+                id: "settings",
+                label: "Settings",
+                data: Some(Settings)
             },
         ]
 
-        let selectTextListOnChange: SelectTextList.Props.onChange<dropdownAction> = (item) => {
+        let selectTextListOnChange: SelectList.Props.onChange<dropdownAction> = (_) => {
             closeDropdown()
-            switch item.data.value {
-                | ChangeAccount => Js.log("change account")
-                | Settings => Js.log("settings")
-            }
         }
+
 
         let dropdown = (
             <Dropdown

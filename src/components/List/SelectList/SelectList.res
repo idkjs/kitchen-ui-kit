@@ -1,31 +1,48 @@
 module Props = {
     type selectItem<'a> = {
-        selected: bool,
-        data: 'a
+        id: string,
+        label: string,
+        data: option<'a>
     }
-
     type items<'a> = array<selectItem<'a>>
-    type renderItem<'a> = (ContentList.Props.index, selectItem<'a>) => React.element
     type onChange<'a> = (selectItem<'a>) => unit
+    type renderItem<'a> = (option<selectItem<'a>>) => (ContentList.Props.index, selectItem<'a>) => React.element
+}
+
+module Styles = {
+    open! Cn
+    open Emotion
+
+    let paddingY = #px(8)
+
+    let shared = css(list{
+        minWidth(#px(150)),
+        width(#pct(100.0)),
+        paddingBottom(paddingY),
+        paddingTop(paddingY),
+    })
+
+    let make = () => fromList(list{
+        shared
+    })
+
 }
 
 @react.component
 let make = (
     ~items: Props.items<'a>,
     ~renderItem: Props.renderItem<'a>,
-    ~onChange: Props.onChange<'a>
+    ~onChange: Props.onChange<'a>,
+    ~value: option<Props.selectItem<'a>> =?
 ) => {
-    let renderItem = (index, item) => {
-        <div 
-            key={string_of_int(index)}
-            onClick={_ => onChange(item)}
-        >
-            {renderItem(index, item)}
-        </div>
-    }
-    
-    <ContentList
-        items
-        renderItem
-    />
+    let renderItem = renderItem(value)
+    <div
+        className={Styles.make()}
+    >
+        <ContentList
+            items
+            renderItem
+            onClick={onChange}
+        />
+    </div>
 }

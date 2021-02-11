@@ -1,11 +1,35 @@
 %%raw(`import './../../dependencies.css'`)
 
-open Emotion
 open Cn
 
-include BigNumber
+let useDropdown = () => {
+    let (isDropdownOpened, setIsDropdownOpened) = React.useState(_ => false)
+    let (isAnimationFinished, setIsAnimationFinished) = React.useState(_ => true)
+    let startAnimation = _ => {
+        setIsAnimationFinished(_ => {
+            let _ = Js.Global.setTimeout(
+                _ => setIsAnimationFinished(_ => true),
+                DropdownStyles.Body.Animation._animationDuration
+            )    
+            false
+        })
+    }
 
-let useDropdown = () => React.useState(_ => false)
+    let toggleDropdown = () => { 
+        startAnimation() 
+        setIsDropdownOpened(isDropdownOpened => !isDropdownOpened)
+    }
+    let openDropdown = () => {
+        startAnimation()
+        setIsDropdownOpened(_ => true)
+    }
+    let closeDropdown = () => {
+        startAnimation()
+        setIsDropdownOpened(_ => false)
+    }
+
+    (isDropdownOpened, isAnimationFinished, toggleDropdown, openDropdown, closeDropdown)
+}
 
 @react.component
 let make = (
@@ -18,7 +42,7 @@ let make = (
     ~children
 ) => {
 
-    let (from, _to) = DropdownStyles.Wrapper.Animation.make(
+    let (from, _to) = DropdownStyles.Body.Animation.make(
         ~distanceFromHost,
         ~direction
     )
@@ -30,20 +54,19 @@ let make = (
 
     <div
         className={fromList(list{
-            DropdownStyles.Container.make(),
-            css(list{
-                paddingBottom(#px(distanceFromHost))
-            }),
+            DropdownStyles.Container.make(
+                ~opened
+            ),
             "dropdown"
         })}
     >
         <div
             className={fromList(list{
-                DropdownStyles.Wrapper.make(
+                animationClass,
+                DropdownStyles.Body.make(
                     ~background
                 ),
-                animationClass,
-                "dropdown-wrapper"
+                "dropdown-body"
             })}
         >
             {children}

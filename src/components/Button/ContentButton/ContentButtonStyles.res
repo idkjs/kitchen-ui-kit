@@ -52,12 +52,7 @@ module Button = {
         cursor(#pointer),
         fontFamily(Typography.fontFamily),
         height(#pct(100.0)),
-        transition(
-            "all", 
-            #ms(100), 
-            #linear, 
-            #ms(0)
-        ),
+        Animated.Transitions.fastest,
         display(#flex),
         alignItems(#center),
         justifyContent(#spaceBetween),

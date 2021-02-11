@@ -8,12 +8,7 @@ module Wrapper = {
     let icon = (
         ~isDropdownOpened
     ) => list{
-        transition(
-            "all", 
-            #ms(250), 
-            #linear, 
-            #ms(0)
-        ),
+        Animated.Transitions.slower,
         position(#relative),
         switch isDropdownOpened {
             | true => transform(#rotate(#deg(180.0)))
@@ -32,10 +27,13 @@ module Wrapper = {
                 }
                 | false => list{}
             }),
+            position(#relative),
             // AccountButton is responsible for setting the width
             // of the underlying list, this is not ideal
-            select(".dropdown-wrapper", list{
-                width(#pct(100.0))
+            select(".dropdown", list{
+                width(#pct(100.0)),
+                bottom(#px(60)) // custom styles to position the DropUp correctly
+                // 60 = height of the account button
             })
         })
     })

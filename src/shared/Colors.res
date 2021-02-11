@@ -6,6 +6,7 @@ module Primary = {
 
 let white = #hex("FFFFFF")
 let transparent = #transparent
+let red = #hex("E03030")
 
 module Gray = {
     module Light = {
@@ -28,8 +29,13 @@ module Secondary = {
     let darkest = #hex("030405")
 }
 
+
 module Background = {
     type t =
     | Light
     | Dark
+}
+
+module Shadow = {
+    let light = #rgba(237, 237, 237, 0.7)
 }

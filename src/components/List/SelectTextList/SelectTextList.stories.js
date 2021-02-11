@@ -5,20 +5,19 @@ export const DefaultInDropdown = maxWidth200px(<SelectTextList/>)
 DefaultInDropdown.args = {
     items: [
         {
-            selected: false,
-            data: {
-                label: "Alice",
-                value: "Alice"
-            }
+            id: 'alice',
+            label: "Alice",
+            value: "Alice"
         },
         {
-            selected: true,
-            data: {
-                label: "Alice",
-                value: "Alice"
-            }
+            id: 'bob',
+            label: "Bob",
+            value: "Bob"
         }
-    ]
+    ],
+    value: {
+        id: 'alice'
+    }
 }
 
 export default {

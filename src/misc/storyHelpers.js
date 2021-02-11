@@ -13,7 +13,6 @@ const MaxWidthContainer = ({width, height, children}) => (
 
 export const maxDimensions = (width, height, children) => (props) => {
     const childWithProps = React.cloneElement(children, props);
-    console.log('props', props);
     return <MaxWidthContainer width={width} height={height}>
         {childWithProps}
     </MaxWidthContainer>

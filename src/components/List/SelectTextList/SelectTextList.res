@@ -1,80 +1,62 @@
-module Props = {
-    type selectItemData<'a> = {
-        label: string,
-        value: 'a
-    }
-    type selectItem<'a> = SelectList.Props.selectItem<selectItemData<'a>>
-    type items<'a> = SelectList.Props.items<selectItemData<'a>>
-    type onChange<'a> = SelectList.Props.onChange<selectItemData<'a>>
-}
+let renderItem: SelectList.Props.renderItem<'a> = (value) => (_, item) => {
+    module Styles = {
+        open! Cn
+        open Emotion
 
-type renderItem<'a> = SelectList.Props.renderItem<Props.selectItemData<'a>>
+        module Item = {
+            let paddingX = #px(16)
+            let shared = css(list{
+                paddingLeft(paddingX),
+                paddingRight(paddingX),
+                fontSize(#px(12)),
+                lineHeight(#px(32)),
+                color(Colors.Secondary.default),
 
-module Styles = {
-    open! Cn
-    open Emotion
-
-    let paddingY = #px(8)
-
-    let shared = css(list{
-        minWidth(#px(150)),
-        width(#pct(100.0)),
-        paddingBottom(paddingY),
-        paddingTop(paddingY),
-    })
-
-    let make = () => fromList(list{
-        shared
-    })
-
-    module Item = {
-        let paddingX = #px(16)
-        let shared = css(list{
-            paddingLeft(paddingX),
-            paddingRight(paddingX),
-            fontSize(#px(12)),
-            lineHeight(#px(32)),
-            color(Colors.Secondary.default),
-
-            hover(list{
-                cursor(#pointer),
-                backgroundColor(Colors.Gray.Light.lighter),
+                hover(list{
+                    cursor(#pointer),
+                    backgroundColor(Colors.Gray.Light.lighter),
+                })
             })
-        })
 
-        let _selected = css(list{
-            color(Colors.Primary.default)
-        })
+            let _selected = css(list{
+                color(Colors.Primary.default)
+            })
 
-        let make = (~selected) => fromList(list{
-            shared,
-            _selected->on(selected),
-        })
+            let make = (~selected) => fromList(list{
+                shared,
+                _selected->on(selected),
+            })
+        }
     }
+
+    let selected = switch value {
+        | Some(value) => value.id == item.id
+        | None => switch item.data {
+            | None => true
+            | Some(_) => false
+        }
+    }
+
+    <p
+        className={Styles.Item.make(
+            ~selected
+        )}
+    >
+        {React.string(item.label)}
+    </p>
 }
+
 
 @react.component
 let make = (
-    ~items: Props.items<'a>,
-    ~onChange: Props.onChange<'a>
+    ~items: SelectList.Props.items<'a>,
+    ~onChange: SelectList.Props.onChange<'a>,
+    ~value: option<SelectList.Props.selectItem<'a>> =?
 ) => {
-    let renderItem: renderItem<'a> = (_, item) => {
-        <p
-            className={Styles.Item.make(
-                ~selected = item.selected
-            )}
-        >
-            {React.string(item.data.label)}
-        </p>
-    }
-
-    <div
-        className={Styles.make()}
-    >
-        <SelectList
-            items
-            renderItem
-            onChange
-        />
-    </div>
+    <SelectList
+        items
+        renderItem
+        onChange
+        ?value
+    />
 }

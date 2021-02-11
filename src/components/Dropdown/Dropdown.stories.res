@@ -2,23 +2,42 @@ module Background = {
     let light = Colors.Background.Light
     let dark = Colors.Background.Dark
 }
+
+module Styles = {
+    open! Cn
+    open Emotion
+
+    module Wrapper = {
+        let shared = css(list{
+            position(#relative)  
+        })
+
+        let make = () => fromList(list{
+            shared
+        })
+    }
+}
+
 @react.component
 let defaultDropdown = (
     ~background
 ) => {
 
     let (opened, setOpened) = React.useState(_ => false)
-    let icon: option<Icon.kind> = Some(#chevronUp)
-    <>  
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+    let icon: option<Icon.kind> = Some(#chevronDown)
+    <div
+        className={Styles.Wrapper.make()}
+    >  
+        <TextButton
+            text={"toggle"}
+            ?icon
+            iconPosition={ContentButtonProps.Right}
+            background={background}
+            onClick={_ => setOpened(opened => !opened)}
+        />
         <Dropdown
                 distanceFromHost={10}
-                direction={DropdownProps.Up}
+                direction={DropdownProps.Down}
                 opened={opened}
                 background={background}
             >
@@ -31,12 +50,5 @@ let defaultDropdown = (
                 {React.string("Dropdown")}
             </h1>
         </Dropdown>
-        <TextButton
-            text={"toggle"}
-            ?icon
-            iconPosition={ContentButtonProps.Right}
-            background={background}
-            onClick={_ => setOpened(opened => !opened)}
-        />
-    </>
+    </div>
 }

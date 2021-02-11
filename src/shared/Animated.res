@@ -1,13 +1,26 @@
-open Emotion
+module Transitions = {
+    open Emotion
 
-module AnimateCss = {
-    let animated = "animated"
+    let slower = transition(
+        "all", 
+        #ms(250), 
+        #linear, 
+        #ms(0)
+    )
 
-    let fast = "fast"
-    let faster = "faster"
-    let fastest = css(list{
-        animationDuration(#ms(220))
-    })
+    let faster = transition(
+        "all", 
+        #ms(150), 
+        #linear, 
+        #ms(0)
+    )
+
+    let fastest = transition(
+        "all", 
+        #ms(100), 
+        #linear, 
+        #ms(0)
+    )
 }
 
 @bs.val 

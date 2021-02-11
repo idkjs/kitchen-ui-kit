@@ -4,6 +4,7 @@ type kind = [
     | #chevronUp
     | #chevronDown
     | #arrowCircleLeft
+    | #selector
 ]
 
 type size = Emotion.Css.LengthPercentageAuto.t
@@ -14,7 +15,8 @@ let make = (~kind: kind, ~size: size = #px(24)) => {
     module Styles = {
         let shared = css(list{
             display(#block),
-            minWidth(size)
+            minWidth(size),
+            width(size)
         })
     }
 
@@ -38,6 +40,11 @@ let make = (~kind: kind, ~size: size = #px(24)) => {
             | #arrowCircleLeft => (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clipRule="evenodd" />
+                </svg>
+            )
+            | #selector => (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={"2"} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                 </svg>
             )
         }}

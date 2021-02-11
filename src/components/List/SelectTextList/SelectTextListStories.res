@@ -1,6 +1,7 @@
 @react.component
 let defaultSelectTextList = (
-    ~items
+    ~items,
+    ~value
 ) => {
     let (opened, setOpened) = React.useState(_ => false)
     React.useEffect(_ => {
@@ -20,6 +21,7 @@ let defaultSelectTextList = (
             <SelectTextList
                 items
                 onChange={Js.log}
+                ?value
             />
         </Dropdown>
     </>
