@@ -1,4 +1,3 @@
-
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
@@ -19,3 +18,5 @@ export const parameters = {
     ]
   }
 }
+
+import './../src/dependencies.css'

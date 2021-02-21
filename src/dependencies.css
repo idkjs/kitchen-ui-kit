@@ -1,8 +1,4 @@
-@import "~animate.css/source/animate.css";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "~normalize.css";
 body, html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
