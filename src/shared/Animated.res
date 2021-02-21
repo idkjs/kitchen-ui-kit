@@ -21,6 +21,13 @@ module Transitions = {
         #linear, 
         #ms(0)
     )
+
+    let evenFaster = transition(
+        "all", 
+        #ms(60), 
+        #linear, 
+        #ms(0)
+    )
 }
 
 @bs.val 

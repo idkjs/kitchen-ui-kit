@@ -7,6 +7,7 @@ module Primary = {
 let white = #hex("FFFFFF")
 let transparent = #transparent
 let red = #hex("E03030")
+let blue = #hex("blue")
 
 module Gray = {
     module Light = {
