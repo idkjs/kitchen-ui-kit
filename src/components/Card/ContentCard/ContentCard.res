@@ -1,20 +1,12 @@
-module Props = {
-    type title = string
-    type description = string
-}
-
 module Styles = {
-    open! Cn
+    open Style
     open Emotion
-    
-    let basePadding = 16
-    let _padding = #px(basePadding)
-    let paddingY = padding2(#px(0), _padding)
-    let _borderRadius = #px(8)
+    open! Cn
 
     module Wrapper = {
-    
-        let boxShadowWrapper = (color) => (
+        let className = "wrapper"
+
+        let _boxShadow = (color) => (
             boxShadow(
                 ~y = #px(3), 
                 ~x = #px(0), 
@@ -25,59 +17,14 @@ module Styles = {
             )
         )
 
+        let _padding = px2rem(16)
 
         let shared = css(list{
+            Typography.condensed,
             backgroundColor(Colors.white),
-            borderRadius(_borderRadius),
-            boxShadowWrapper(Colors.Gray.Light.darkest),
-            paddingTop(_padding),
-            paddingBottom(#px(24)),
-            position(#relative),
-            fontFamily(Typography.fontFamily)
-        })
-
-        let withDescription = css(list{
-            // very bad
-            important(paddingBottom(#px(0))),
-        })
-
-
-        let make = (
-            ~description
-        ) => fromList(list{
-            shared,
-            withDescription->onSome(description),
-            
-        })
-    }
-
-    module Title = {
-        let (_borderWidth, _marginBottom) = {
-            open! Pervasives
-            let _borderWidth = 4
-            let _marginBottom = _borderWidth * 2 + basePadding
-            (_borderWidth, _marginBottom)
-        }
-
-        let shared = css(list{
-            color(Colors.Primary.default),
-            fontWeight(700),
-            fontSize(#px(18)),
-            height(#px(20)),
-            marginBottom(#px(_marginBottom)),
-            textTransform(#uppercase),
-            fontFamily(Typography.fontFamily),
-            paddingY,
-            select(":after", list{
-                width(#px(100)),
-                height(#px(0)),
-                content(""),
-                display(#block),
-                borderBottomWidth(#px(_borderWidth)),
-                borderBottomColor(Colors.Gray.Light.darker),
-                position(#relative),
-                top(#px(0))
-            })
+            borderRadius(px2rem(8)),
+            _boxShadow(Colors.Gray.Light.darkest),
+            overflow(#hidden)
         })
 
         let make = () => fromList(list{
@@ -85,21 +32,71 @@ module Styles = {
         })
     }
 
-    module Description = {
+    module Title = {
+        let className = "title"
+        
+        let underline = list{
+            display(#block),
+            position(#relative),
+            content(""),
+
+            height(px2rem(4)),
+            width(px2rem(72)),
+            backgroundColor(Colors.Gray.Light.darker),
+            marginTop(px2rem(2))
+        }
+
         let shared = css(list{
-            backgroundColor(Colors.Gray.Light.default),
-            paddingY,
-            borderBottomRightRadius(_borderRadius),
-            borderBottomLeftRadius(_borderRadius),
-            height(#px(40)),
-            fontSize(#px(12)),
-            lineHeight(#px(14)),
+            color(Colors.Primary.default),
             textTransform(#uppercase),
+            fontWeight(700),
+            fontSize(px2rem(18)),
+            lineHeight(px2rem(21)),
+            margin(px2rem(0)),
+            padding(Wrapper._padding),
+            paddingBottom(px2rem(0)),
+
+            after(underline)
+        })
+
+        let make = () => fromList(list{
+            shared
+        })
+    }
+
+    module Content = {
+        let className = "content"
+        let shared = css(list{
+            padding2(px2rem(0), Wrapper._padding),
+            paddingTop(px2rem(16)),
+            paddingBottom(px2rem(20))
+        })
+
+        let withDescription = css(list{
+            paddingBottom(px2rem(16))
+        })
+
+        let make = (
+            ~description
+        ) => fromList(list{
+            withDescription->onSome(description),
+            shared,
+        })
+    }
+
+    module Description = {
+        let className = "description"
+        let shared = css(list{
+            backgroundColor(Colors.red),
+            padding(px2rem(12)),
+            paddingLeft(Wrapper._padding),
+            paddingRight(Wrapper._padding),
+            backgroundColor(Colors.Gray.Light.default),
+            textTransform(#uppercase),
+
             color(Colors.Gray.Dark.default),
-            textAlign(#left),
-            display(#flex),
-            alignItems(#center),
-            marginTop(#px(basePadding))
+            fontSize(px2rem(12)),
+            lineHeight(px2rem(14)),
         })
 
         let make = () => fromList(list{
@@ -110,45 +107,54 @@ module Styles = {
 
 @react.component
 let make = (
-    ~title: Props.title,
-    ~description: option<Props.description> =?,
-    ~children
+    ~children,
+    ~description,
+    ~title
 ) => {
-
     let title = (
         <p
-            className={Styles.Title.make()}
+            className={Cn.fromList(list{
+                Styles.Title.className,
+                Styles.Title.make()
+            })}
         >
             {React.string(title)}
         </p>
     )
 
-    let children = (
-        <div>
+    let content = (
+        <div
+            className={Cn.fromList(list{
+                Styles.Content.className,
+                Styles.Content.make(~description)
+            })}
+        >
             {children}
         </div>
     )
 
-    let _description = switch description {
+    let description = switch description {
+        | None => <></>
         | Some(description) => (
             <div
-                className={Styles.Description.make()}
+                className={Cn.fromList(list{
+                    Styles.Description.className,
+                    Styles.Description.make()
+                })}
             >
-                <p>
-                    {React.string(description)}
-                </p>
+                {React.string(description)}
             </div>
         )
-        | None => <></>
     }
 
     <div
-        className={Styles.Wrapper.make(
-            ~description
-        )}
-    >
+        className={Cn.fromList(list{
+            Styles.Wrapper.className,
+            Styles.Wrapper.make()
+        })}
+    >   
         {title}
-        {children}
-        {_description}
+        {content}
+        {description}
     </div>
 }

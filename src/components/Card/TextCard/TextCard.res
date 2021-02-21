@@ -1,20 +1,17 @@
-module Props = {
-    type text = string
-}
-
 module Styles = {
-    open! Cn
+    open Style
     open Emotion
+    open! Cn
 
-    module Wrapper = {
+    module Body = {
+        let className = "body"
         let shared = css(list{
-            fontFamily(Typography.fontFamilySlab),
-            fontSize(#px(28)),
-            lineHeight(#px(30)),
+            Typography.slab,
+            fontSize(px2rem(28)),
             fontWeight(700),
-            color(Colors.Secondary.default),
-            ContentCard.Styles.paddingY,
+            color(Colors.Secondary.default)
         })
+
         let make = () => fromList(list{
             shared
         })
@@ -23,20 +20,26 @@ module Styles = {
 
 @react.component
 let make = (
-    ~title: ContentCard.Props.title,
-    ~text: Props.text,
-    ~description: option<ContentCard.Props.description> =?
+    ~text,
+    ~description,
+    ~title
 ) => {
-    <ContentCard
-        title
-        ?description
-    >
+
+    let content = (
         <div
-            className={Styles.Wrapper.make()}
+            className={Cn.fromList(list{
+                Styles.Body.className,
+                Styles.Body.make()
+            })}
         >
-            <p>
-                {React.string(text)}
-            </p>
+            {React.string(text)}
         </div>
+    )
+
+    <ContentCard
+        description
+        title
+    >
+        {content}
     </ContentCard>
 }
