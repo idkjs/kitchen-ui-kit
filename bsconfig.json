@@ -26,7 +26,6 @@
         "re-classnames"
     ],
     "ppx-flags": [],
-    "refmt": 3,
     "gentypeconfig": {
         "language": "untyped",
         "shims": {},
